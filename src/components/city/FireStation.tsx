@@ -29,7 +29,7 @@ function FireTruckLowPoly() {
 
 export default function FireStation({ onClick }: Props) {
   return (
-    <group position={[-6, 0, -2]} onClick={onClick}>
+    <group position={[-11, 0, -5]} onClick={onClick}>
       {/* Base platform */}
       <mesh position={[0, -0.1, 0]} receiveShadow>
         <boxGeometry args={[3, 0.2, 2.5]} />

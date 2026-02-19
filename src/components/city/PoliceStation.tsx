@@ -4,7 +4,7 @@ interface Props {
 
 export default function PoliceStation({ onClick }: Props) {
   return (
-    <group position={[5, 0, 2]} onClick={onClick}>
+    <group position={[11, 0, -4]} onClick={onClick}>
       {/* Base platform */}
       <mesh position={[0, -0.1, 0]} receiveShadow>
         <boxGeometry args={[2.2, 0.2, 1.8]} />

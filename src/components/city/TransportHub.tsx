@@ -36,7 +36,7 @@ export default function TransportHub({ onClick, congestion = 32 }: Props) {
   const roadColor = getCongestionColor(congestion);
 
   return (
-    <group position={[7, 0, 0]} onClick={onClick}>
+    <group position={[11, 0, 0]} onClick={onClick}>
       {/* Main building */}
       <mesh position={[0, 1, 0]} castShadow>
         <boxGeometry args={[2, 2, 1.8]} />

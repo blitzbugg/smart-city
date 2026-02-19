@@ -33,7 +33,7 @@ function SmartBin({ position, fillLevel, color }: { position: [number, number, n
 
 export default function WasteManagementCenter({ onClick, binFillLevels = [35, 50, 20] }: Props) {
   return (
-    <group position={[-7, 0, 0]} onClick={onClick}>
+    <group position={[-11, 0, 0]} onClick={onClick}>
       {/* Main building */}
       <mesh position={[0, 0.6, 0]} castShadow>
         <boxGeometry args={[2.5, 1.2, 2]} />

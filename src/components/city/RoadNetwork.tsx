@@ -131,47 +131,47 @@ const SECONDARY_COLOR = "#4b5563";
 const STREET_COLOR = "#6b7280";
 
 export default function RoadNetwork() {
-  // Paths for vehicles (x, z in world space)
+  // Paths for vehicles — spaced ring and radials matching building layout
   const mainRingPath: [number, number][] = [
-    [0, 5], [5, 5], [5, 0], [5, -5], [0, -5], [-5, -5], [-5, 0], [-5, 5], [0, 5],
+    [0, 8], [8, 8], [8, 0], [8, -8], [0, -8], [-8, -8], [-8, 0], [-8, 8], [0, 8],
   ];
-  const eastWestPath: [number, number][] = [[-12, 0], [-5, 0], [5, 0], [12, 0], [-12, 0]];
-  const busPath: [number, number][] = [[-8, 3], [0, 3], [8, 3], [8, -3], [0, -3], [-8, -3], [-8, 3]];
-  const deliveryPath: [number, number][] = [[-5.5, 5.5], [-5, 5.2], [-4.5, 5.5], [-5.5, 5.5]];
+  const eastWestPath: [number, number][] = [[-13, 0], [-8, 0], [8, 0], [13, 0], [-13, 0]];
+  const busPath: [number, number][] = [[-11, 5], [0, 5], [11, 5], [11, -5], [0, -5], [-11, -5], [-11, 5]];
+  const deliveryPath: [number, number][] = [[-11.5, 7.5], [-11, 7.2], [-10.5, 7.5], [-11.5, 7.5]];
 
   return (
     <group>
       {/* Roundabout near Governance Tower */}
       <Roundabout />
 
-      {/* Main arterial (dark, wide) — N-S and E-W */}
-      <RoadSegment position={[0, 0, -8]} rotation={0} width={1.4} length={16} color={ARTERIAL_COLOR} hasCenterLine />
-      <RoadSegment position={[0, 0, 8]} rotation={0} width={1.4} length={16} color={ARTERIAL_COLOR} hasCenterLine />
-      <RoadSegment position={[-8, 0, 0]} rotation={Math.PI / 2} width={1.4} length={16} color={ARTERIAL_COLOR} hasCenterLine />
-      <RoadSegment position={[8, 0, 0]} rotation={Math.PI / 2} width={1.4} length={16} color={ARTERIAL_COLOR} hasCenterLine />
+      {/* Main arterial (dark, wide) — N-S and E-W, well spaced */}
+      <RoadSegment position={[0, 0, -10]} rotation={0} width={1.4} length={22} color={ARTERIAL_COLOR} hasCenterLine />
+      <RoadSegment position={[0, 0, 10]} rotation={0} width={1.4} length={22} color={ARTERIAL_COLOR} hasCenterLine />
+      <RoadSegment position={[-10, 0, 0]} rotation={Math.PI / 2} width={1.4} length={22} color={ARTERIAL_COLOR} hasCenterLine />
+      <RoadSegment position={[10, 0, 0]} rotation={Math.PI / 2} width={1.4} length={22} color={ARTERIAL_COLOR} hasCenterLine />
 
-      {/* Secondary roads (medium) */}
-      <RoadSegment position={[0, 0, 3]} rotation={0} width={0.9} length={6} color={SECONDARY_COLOR} hasCenterLine />
-      <RoadSegment position={[3, 0, 0]} rotation={Math.PI / 2} width={0.9} length={6} color={SECONDARY_COLOR} hasCenterLine />
-      <RoadSegment position={[-3, 0, 0]} rotation={Math.PI / 2} width={0.9} length={6} color={SECONDARY_COLOR} hasCenterLine />
-      <RoadSegment position={[0, 0, -3]} rotation={0} width={0.9} length={6} color={SECONDARY_COLOR} hasCenterLine />
-      <RoadSegment position={[6, 0, -6]} rotation={Math.PI / 4} width={0.9} length={5} color={SECONDARY_COLOR} />
-      <RoadSegment position={[-6, 0, 6]} rotation={-Math.PI / 4} width={0.9} length={5} color={SECONDARY_COLOR} />
+      {/* Secondary roads (medium) — connect zones with clear gaps */}
+      <RoadSegment position={[0, 0, 5]} rotation={0} width={0.9} length={10} color={SECONDARY_COLOR} hasCenterLine />
+      <RoadSegment position={[5, 0, 0]} rotation={Math.PI / 2} width={0.9} length={10} color={SECONDARY_COLOR} hasCenterLine />
+      <RoadSegment position={[-5, 0, 0]} rotation={Math.PI / 2} width={0.9} length={10} color={SECONDARY_COLOR} hasCenterLine />
+      <RoadSegment position={[0, 0, -5]} rotation={0} width={0.9} length={10} color={SECONDARY_COLOR} hasCenterLine />
+      <RoadSegment position={[7, 0, -7]} rotation={Math.PI / 4} width={0.9} length={6} color={SECONDARY_COLOR} />
+      <RoadSegment position={[-7, 0, 7]} rotation={-Math.PI / 4} width={0.9} length={6} color={SECONDARY_COLOR} />
 
       {/* Residential streets (narrow) */}
-      <RoadSegment position={[0, 0, 9]} rotation={0} width={0.5} length={4} color={STREET_COLOR} />
-      <RoadSegment position={[-5.5, 0, 6.5]} rotation={Math.PI / 2} width={0.5} length={3} color={STREET_COLOR} />
-      <RoadSegment position={[5.5, 0, 6.5]} rotation={Math.PI / 2} width={0.5} length={3} color={STREET_COLOR} />
+      <RoadSegment position={[0, 0, 12]} rotation={0} width={0.5} length={5} color={STREET_COLOR} />
+      <RoadSegment position={[-6, 0, 9]} rotation={Math.PI / 2} width={0.5} length={5} color={STREET_COLOR} />
+      <RoadSegment position={[6, 0, 9]} rotation={Math.PI / 2} width={0.5} length={5} color={STREET_COLOR} />
 
       {/* Traffic signals at key intersections */}
-      <TrafficSignal position={[5.5, 0, 0]} />
-      <TrafficSignal position={[-5.5, 0, 0]} />
-      <TrafficSignal position={[0, 0, 5.5]} />
-      <TrafficSignal position={[0, 0, -5.5]} />
+      <TrafficSignal position={[8, 0, 0]} />
+      <TrafficSignal position={[-8, 0, 0]} />
+      <TrafficSignal position={[0, 0, 8]} />
+      <TrafficSignal position={[0, 0, -8]} />
 
-      {/* Zebra crossings near school/hospital (example positions) */}
-      <ZebraCrossing position={[2, 0, 8.5]} rotation={0} length={0.8} />
-      <ZebraCrossing position={[-4, 0, 3.5]} rotation={Math.PI / 2} length={0.7} />
+      {/* Zebra crossings near school/hospital */}
+      <ZebraCrossing position={[3, 0, 11.5]} rotation={0} length={0.8} />
+      <ZebraCrossing position={[-5, 0, 9]} rotation={Math.PI / 2} length={0.7} />
 
       {/* Moving cars on main ring */}
       <MovingVehicle path={mainRingPath} speed={0.6} color="#6ee7b7" size={[0.28, 0.18, 0.48]} />

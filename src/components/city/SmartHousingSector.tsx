@@ -14,7 +14,7 @@ const HOUSE_POSITIONS: [number, number, number][] = [
 
 export default function SmartHousingSector({ onClick }: Props) {
   return (
-    <group position={[0, 0, 7]} onClick={onClick}>
+    <group position={[0, 0, 11]} onClick={onClick}>
       {/* Base platform */}
       <mesh position={[0, -0.1, 0]} receiveShadow>
         <boxGeometry args={[4, 0.2, 3]} />

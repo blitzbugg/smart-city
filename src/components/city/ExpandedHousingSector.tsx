@@ -160,7 +160,7 @@ const CHILDREN_POSITION: [number, number, number] = [0, 0, -1.4];
 
 export default function ExpandedHousingSector({ onClick }: Props) {
   return (
-    <group position={[0, 0, 8]} onClick={onClick}>
+    <group position={[0, 0, 13]} onClick={onClick}>
       {/* Base platform — larger than original housing */}
       <mesh position={[0, -0.12, 0]} receiveShadow>
         <boxGeometry args={[8, 0.2, 6]} />

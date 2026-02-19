@@ -6,7 +6,7 @@ interface Props {
 
 export default function HospitalComplex({ onClick }: Props) {
   return (
-    <group position={[-4, 0, 6]} onClick={onClick}>
+    <group position={[-5, 0, 11]} onClick={onClick}>
       {/* Base platform */}
       <mesh position={[0, -0.1, 0]} receiveShadow>
         <boxGeometry args={[3, 0.2, 2.5]} />

@@ -1,6 +1,7 @@
 import { useRef, useState } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
+import * as THREE from "three";
 import GovernanceTower from "@/components/city/GovernanceTower";
 import RenewableEnergyPlant from "@/components/city/RenewableEnergyPlant";
 import TransportHub from "@/components/city/TransportHub";
@@ -79,12 +80,12 @@ function BoundaryTrees() {
 
 function InnerTrees() {
   const positions: [number, number, number][] = [
-    [-4, 0, -3], [4, 0, -4], [-3, 0, 4], [5, 0, 5],
-    [-8, 0, -6], [8, 0, -5], [-5, 0, 7], [10, 0, 3],
-    [-10, 0, 2], [3, 0, 8], [-6, 0, -8], [6, 0, 7],
-    [-8, 0, 8], [9, 0, -8], [-12, 0, 5], [12, 0, -3],
-    [0, 0, 10], [-10, 0, -10], [8, 0, 9], [-3, 0, -10],
-    [2, 0, 5], [-4, 0, -5], [6, 0, -2], [-7, 0, 3], [1, 0, -7],
+    [-3, 0, -6], [3, 0, -7], [-4, 0, 5], [6, 0, 6],
+    [-7, 0, -5], [7, 0, -4], [-5, 0, 8], [9, 0, 4],
+    [-8, 0, 3], [4, 0, 9], [-6, 0, -7], [6, 0, 6],
+    [-7, 0, 7], [8, 0, -7], [-9, 0, 5], [9, 0, -4],
+    [0, 0, 9], [-9, 0, -9], [7, 0, 8], [-4, 0, -9],
+    [2, 0, 6], [-5, 0, -5], [5, 0, -3], [-6, 0, 4], [1, 0, -6],
   ];
   return (
     <>
@@ -104,15 +105,15 @@ function InnerTrees() {
   );
 }
 
-/** Water body — canal / small river section */
+/** Water body — canal / small river section (between zones) */
 function WaterBody() {
   return (
     <group>
-      <mesh position={[9, -0.18, -9]} rotation={[-Math.PI / 2, 0, 0]} receiveShadow>
-        <planeGeometry args={[6, 4]} />
+      <mesh position={[12, -0.18, -10]} rotation={[-Math.PI / 2, 0, 0]} receiveShadow>
+        <planeGeometry args={[5, 4]} />
         <meshStandardMaterial color="#0ea5e9" transparent opacity={0.9} flatShading />
       </mesh>
-      <mesh position={[-8, -0.18, 8]} rotation={[-Math.PI / 2, 0, 0]} receiveShadow>
+      <mesh position={[-12, -0.18, 9]} rotation={[-Math.PI / 2, 0, 0]} receiveShadow>
         <planeGeometry args={[4, 5]} />
         <meshStandardMaterial color="#0ea5e9" transparent opacity={0.9} flatShading />
       </mesh>
@@ -120,18 +121,95 @@ function WaterBody() {
   );
 }
 
-/** Subtle cloud layer above city */
+/** Cloud layer — gentle drift, used after intro */
 function CloudLayer() {
   const ref = useRef<THREE.Group>(null);
   useFrame((state) => {
-    if (ref.current) ref.current.position.x = Math.sin(state.clock.elapsedTime * 0.02) * 3;
+    if (ref.current) {
+      const t = state.clock.elapsedTime;
+      ref.current.position.x = Math.sin(t * 0.015) * 2;
+      ref.current.position.z = Math.cos(t * 0.012) * 1.5;
+    }
   });
   return (
     <group ref={ref} position={[0, 18, 0]}>
-      {[[-8, 0, -5], [5, 0, 3], [0, 0, 8], [-3, 0, -10], [10, 0, 0]].map((pos, i) => (
+      {[[-10, 0, -6], [6, 0, 4], [0, 0, 10], [-4, 0, -11], [11, 0, 0]].map((pos, i) => (
         <mesh key={i} position={pos as [number, number, number]} rotation={[-Math.PI / 2, 0, 0]}>
           <planeGeometry args={[6 + i * 0.5, 4]} />
-          <meshBasicMaterial color="#ffffff" transparent opacity={0.25} depthWrite={false} />
+          <meshBasicMaterial color="#ffffff" transparent opacity={0.28} depthWrite={false} />
+        </mesh>
+      ))}
+    </group>
+  );
+}
+
+/** Initial load: clouds drift in from the sides, fade in with stagger, then hand off to CloudLayer */
+function CloudIntro({ onComplete }: { onComplete: () => void }) {
+  const groupRef = useRef<THREE.Group>(null);
+  const meshRefs = useRef<(THREE.Mesh | null)[]>([]);
+  const done = useRef(false);
+  const start = useRef<number | null>(null);
+
+  const cloudData: [number, number, number, number, number, number][] = [
+    [-22, 0, -8, 8, 5, 0],
+    [20, 0, 3, 7, 4.5, 0.3],
+    [-8, 0, 18, 6, 4, 0.6],
+    [16, 0, -14, 7, 4, 0.2],
+    [-14, 0, 6, 6, 4.5, 0.5],
+  ];
+
+  useFrame((state) => {
+    if (done.current) return;
+    const t = state.clock.elapsedTime;
+    if (start.current === null) start.current = t;
+    const elapsed = t - start.current;
+    const dur = 4.5;
+
+    if (elapsed >= dur) {
+      done.current = true;
+      onComplete();
+      return;
+    }
+
+    const u = Math.min(1, elapsed / dur);
+    const easeIn = 1 - (1 - u) * (1 - u);
+
+    if (groupRef.current) {
+      groupRef.current.position.y = 12 + 6 * easeIn;
+      groupRef.current.position.x = (1 - easeIn) * -8 + Math.sin(elapsed * 0.4) * 0.5;
+      groupRef.current.position.z = (1 - easeIn) * 3 + Math.cos(elapsed * 0.3) * 0.4;
+    }
+
+    meshRefs.current.forEach((mesh, i) => {
+      if (!mesh?.material) return;
+      const mat = mesh.material as THREE.MeshBasicMaterial;
+      const fadeDelay = cloudData[i][5];
+      const fadeStart = 0.2 + fadeDelay * 0.6;
+      const fadeDur = 1.2;
+      const opacity =
+        elapsed > fadeStart
+          ? Math.min(1, (elapsed - fadeStart) / fadeDur) * 0.35
+          : 0;
+      mat.opacity = opacity;
+    });
+  });
+
+  return (
+    <group ref={groupRef} position={[0, 12, 0]}>
+      {cloudData.map(([x, y, z, w, h], i) => (
+        <mesh
+          key={i}
+          ref={(el) => { meshRefs.current[i] = el; }}
+          position={[x, y, z]}
+          rotation={[-Math.PI / 2, 0, 0]}
+        >
+          <planeGeometry args={[w, h]} />
+          <meshBasicMaterial
+            color="#ffffff"
+            transparent
+            opacity={0}
+            depthWrite={false}
+          />
         </mesh>
       ))}
     </group>
@@ -175,15 +253,15 @@ function CameraIntro({ onComplete }: { onComplete: () => void }) {
 
 const NPC_PATHS: [number, number, number][][] = (() => {
   const base = [
-    [-5, 0, 5.2], [-3, 0, 5], [0, 0, 4], [3, 0, 5], [5, 0, 5.2],
-    [5, 0, 3], [5, 0, 0], [3, 0, 0], [0, 0, 0], [-3, 0, 0], [-5, 0, 0],
-    [-5, 0, -3], [-3, 0, -3], [0, 0, -3], [3, 0, -3], [5, 0, -3],
-    [3, 0, -5], [0, 0, -5], [-3, 0, -5], [-5, 0, -3], [-5, 0, 5.2],
+    [-8, 0, 8], [-4, 0, 8], [0, 0, 6], [4, 0, 8], [8, 0, 8],
+    [8, 0, 4], [8, 0, 0], [4, 0, 0], [0, 0, 0], [-4, 0, 0], [-8, 0, 0],
+    [-8, 0, -4], [-4, 0, -4], [0, 0, -4], [4, 0, -4], [8, 0, -4],
+    [4, 0, -8], [0, 0, -8], [-4, 0, -8], [-8, 0, -4], [-8, 0, 8],
   ];
-  const mallPath = [[-5.2, 0, 5.5], [-4.5, 0, 5.2], [-5.2, 0, 4.8], [-5.2, 0, 5.5]];
-  const schoolPath = [[3.2, 0, 7.2], [3.5, 0, 7.5], [3.8, 0, 7.2], [3.2, 0, 6.8], [3.2, 0, 7.2]];
-  const parkPath = [[0.5, 0, 8.5], [0, 0, 8.2], [-0.5, 0, 8.5], [0, 0, 8.8], [0.5, 0, 8.5]];
-  const crossPath = [[-4.8, 0, 3], [-4.2, 0, 3], [-4.8, 0, 3]];
+  const mallPath = [[-11.2, 0, 7.5], [-10.5, 0, 7.2], [-11.2, 0, 6.8], [-11.2, 0, 7.5]];
+  const schoolPath = [[5.2, 0, 11.2], [5.5, 0, 11.5], [5.8, 0, 11.2], [5.2, 0, 10.8], [5.2, 0, 11.2]];
+  const parkPath = [[0.5, 0, 12.5], [0, 0, 12.2], [-0.5, 0, 12.5], [0, 0, 12.8], [0.5, 0, 12.5]];
+  const crossPath = [[-6, 0, 9], [-5, 0, 9], [-6, 0, 9]];
   const paths = [base, mallPath, schoolPath, parkPath, crossPath];
   const out: [number, number, number][][] = [];
   for (let i = 0; i < 22; i++) {
@@ -212,6 +290,7 @@ function NPCs() {
 
 export default function CityScene({ onBuildingClick, metrics }: Props) {
   const [introDone, setIntroDone] = useState(false);
+  const [cloudIntroDone, setCloudIntroDone] = useState(false);
 
   return (
     <Canvas
@@ -240,7 +319,8 @@ export default function CityScene({ onBuildingClick, metrics }: Props) {
       <BoundaryTrees />
       <InnerTrees />
       <RoadNetwork />
-      <CloudLayer />
+      {!cloudIntroDone && <CloudIntro onComplete={() => setCloudIntroDone(true)} />}
+      {cloudIntroDone && <CloudLayer />}
 
       {!introDone && <CameraIntro onComplete={() => setIntroDone(true)} />}
       {introDone && (

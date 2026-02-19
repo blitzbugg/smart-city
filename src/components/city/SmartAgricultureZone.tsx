@@ -16,7 +16,7 @@ export default function SmartAgricultureZone({ onClick }: Props) {
   });
 
   return (
-    <group position={[6, 0, -6]} onClick={onClick}>
+    <group position={[9, 0, -9]} onClick={onClick}>
       {/* Base platform */}
       <mesh position={[0, -0.1, 0]} receiveShadow>
         <boxGeometry args={[5, 0.2, 4]} />

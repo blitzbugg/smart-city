@@ -101,13 +101,13 @@ function SmallPlaceOfWorship({ position }: { position: [number, number, number] 
 }
 
 const POLE_POSITIONS: [number, number, number][] = [
-  [4, 0, 0], [-4, 0, 0], [0, 0, 4], [0, 0, -4], [6, 0, 3], [-6, 0, 3], [3, 0, 7], [-5, 0, 6],
+  [6, 0, 0], [-6, 0, 0], [0, 0, 6], [0, 0, -6], [8, 0, 4], [-8, 0, 4], [4, 0, 9], [-6, 0, 8],
 ];
 const SIGN_POSITIONS: [number, number, number, number][] = [
-  [5.5, 0, 1], 0, [-4.5, 0, 6.5], Math.PI / 4, [0, 0, 6], 0,
+  [8, 0, 2, 0], [-7, 0, 8, Math.PI / 4], [0, 0, 9, 0],
 ];
 const BUS_STOP_POSITIONS: [number, number, number][] = [
-  [6, 0, 2.5], [-6, 0, 3.5], [2, 0, 8],
+  [9, 0, 4], [-9, 0, 5], [3, 0, 11],
 ];
 
 export default function CityDensity() {
@@ -122,9 +122,9 @@ export default function CityDensity() {
       {BUS_STOP_POSITIONS.map((pos, i) => (
         <BusStop key={i} position={pos} />
       ))}
-      <EVChargingStation position={[4.5, 0, 5]} />
-      <SmallPlaceOfWorship position={[-8, 0, 4]} />
-      <SmallPlaceOfWorship position={[8.5, 0, -5]} />
+      <EVChargingStation position={[6, 0, 6]} />
+      <SmallPlaceOfWorship position={[-12, 0, 5]} />
+      <SmallPlaceOfWorship position={[12, 0, -6]} />
     </group>
   );
 }

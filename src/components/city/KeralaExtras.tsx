@@ -49,12 +49,12 @@ function FishingBoat() {
   const ref = useRef<THREE.Group>(null);
   useFrame((state) => {
     if (ref.current) {
-      ref.current.position.x = 9 + Math.sin(state.clock.elapsedTime * 0.3) * 0.4;
-      ref.current.position.z = -9.5 + Math.cos(state.clock.elapsedTime * 0.2) * 0.3;
+      ref.current.position.x = 12 + Math.sin(state.clock.elapsedTime * 0.3) * 0.4;
+      ref.current.position.z = -10 + Math.cos(state.clock.elapsedTime * 0.2) * 0.3;
     }
   });
   return (
-    <group ref={ref} position={[9, -0.05, -9.5]}>
+    <group ref={ref} position={[12, -0.05, -10]}>
       <mesh rotation={[0, 0, 0]}>
         <boxGeometry args={[0.5, 0.12, 1]} />
         <meshStandardMaterial color="#78350f" flatShading />
@@ -88,12 +88,12 @@ function RainwaterTank({ position }: { position: [number, number, number] }) {
 }
 
 const COCONUT_POSITIONS: [number, number, number][] = [
-  [8, 0, -8], [9, 0, -7], [-8, 0, 8], [-7, 0, 9], [6, 0, 7], [7, 0, 6],
-  [-9, 0, -6], [-8, 0, -7], [10, 0, 2], [4, 0, -9],
+  [10, 0, -9], [11, 0, -8], [-11, 0, 9], [-10, 0, 10], [7, 0, 8], [8, 0, 7],
+  [-10, 0, -7], [-9, 0, -8], [11, 0, 2], [5, 0, -10],
 ];
 const PADDY_POSITIONS: [number, number, number][] = [
-  [7, -0.1, -5], [8.2, -0.1, -5], [7, -0.1, -3.8], [8.2, -0.1, -3.8],
-  [-7, -0.1, 6], [-5.8, -0.1, 6], [-7, -0.1, 7.2],
+  [9, -0.1, -6], [10.2, -0.1, -6], [9, -0.1, -4.8], [10.2, -0.1, -4.8],
+  [-10, -0.1, 7], [-8.8, -0.1, 7], [-10, -0.1, 8.2],
 ];
 
 export default function KeralaExtras() {
@@ -105,11 +105,11 @@ export default function KeralaExtras() {
       {PADDY_POSITIONS.map((pos, i) => (
         <PaddyCell key={i} position={pos} />
       ))}
-      <CanalSegment position={[7.5, 0, -4.5]} length={3} rotation={0} />
-      <CanalSegment position={[-6.5, 0, 6.5]} length={2.5} rotation={Math.PI / 2} />
+      <CanalSegment position={[9.5, 0, -5.5]} length={3} rotation={0} />
+      <CanalSegment position={[-9.5, 0, 8]} length={2.5} rotation={Math.PI / 2} />
       <FishingBoat />
-      <RainwaterTank position={[1.5, 0, 8.5]} />
-      <RainwaterTank position={[-2, 0, 9]} />
+      <RainwaterTank position={[1.5, 0, 12]} />
+      <RainwaterTank position={[-2, 0, 12]} />
     </group>
   );
 }

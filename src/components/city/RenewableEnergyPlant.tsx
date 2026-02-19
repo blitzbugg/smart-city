@@ -42,7 +42,7 @@ function WindTurbine({ position }: { position: [number, number, number] }) {
 
 export default function RenewableEnergyPlant({ onClick }: Props) {
   return (
-    <group position={[0, 0, -6]} onClick={onClick}>
+    <group position={[0, 0, -11]} onClick={onClick}>
       {/* Solar panels */}
       {[-1.5, 0, 1.5].map((x, i) => (
         <mesh key={i} position={[x, 0.4, 0]} rotation={[-0.4, 0, 0]} castShadow>

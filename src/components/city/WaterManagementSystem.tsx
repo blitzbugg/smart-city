@@ -19,7 +19,7 @@ export default function WaterManagementSystem({ onClick, waterLevel = 70 }: Prop
   const levelScale = waterLevel / 100;
 
   return (
-    <group position={[5, 0, 5]} onClick={onClick}>
+    <group position={[11, 0, 7]} onClick={onClick}>
       {/* Base platform */}
       <mesh position={[0, -0.1, 0]} receiveShadow>
         <boxGeometry args={[3, 0.2, 3]} />

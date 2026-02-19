@@ -30,7 +30,7 @@ function StudentNPC({ position, color }: { position: [number, number, number]; c
 
 export default function EducationCenter({ onClick }: Props) {
   return (
-    <group position={[3, 0, 7]} onClick={onClick}>
+    <group position={[5, 0, 11]} onClick={onClick}>
       {/* Base platform */}
       <mesh position={[0, -0.1, 0]} receiveShadow>
         <boxGeometry args={[4, 0.2, 3.5]} />
