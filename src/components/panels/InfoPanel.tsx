@@ -7,6 +7,7 @@ import {
 import {
   governanceData, renewableData, trafficData, wasteData,
   waterData, mallData, agricultureData, housingData,
+  hospitalData, policeData, fireData, educationData,
 } from "@/data/mockData";
 
 interface Props {
@@ -32,6 +33,10 @@ const DATA_MAP: Record<string, BuildingData> = {
   mall: mallData,
   agriculture: agricultureData,
   housing: housingData,
+  hospital: hospitalData,
+  police: policeData,
+  fire: fireData,
+  education: educationData,
 };
 
 const CHART_TYPE: Record<string, "line" | "bar"> = {
@@ -43,6 +48,10 @@ const CHART_TYPE: Record<string, "line" | "bar"> = {
   mall: "bar",
   agriculture: "line",
   housing: "line",
+  hospital: "line",
+  police: "line",
+  fire: "line",
+  education: "line",
 };
 
 export default function InfoPanel({ selectedBuilding, onClose }: Props) {

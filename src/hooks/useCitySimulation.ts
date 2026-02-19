@@ -22,6 +22,12 @@ export interface CityMetrics {
   citizenHappiness: number;
   housingOccupancy: number;
   housingEnergy: number;
+  // New: health, safety, education, fire
+  healthData: { bedOccupancy: number; emergencyResponseMin: number; healthIndex: number };
+  safetyData: { activeCases: number; crimeIndex: number; patrolCoverage: number };
+  educationData: { enrollmentRate: number; digitalLiteracy: number; educationIndex: number };
+  fireRiskData: { responseTimeMin: number; fireRiskIndex: number };
+  agricultureOutput: number;
 }
 
 function clamp(val: number, min: number, max: number) {
@@ -34,12 +40,15 @@ function fluctuate(base: number, range: number) {
 
 function calculateHealth(m: Omit<CityMetrics, "cityHealth">) {
   return Math.round(
-    m.renewableEfficiency * 0.2 +
-    m.recyclingRate * 0.15 +
-    m.transportEfficiency * 0.2 +
-    m.waterQuality * 0.15 +
+    m.renewableEfficiency * 0.15 +
+    m.recyclingRate * 0.1 +
+    m.transportEfficiency * 0.15 +
+    m.waterQuality * 0.1 +
     m.citizenHappiness * 0.15 +
-    m.cropYield * 0.15
+    m.agricultureOutput * 0.1 +
+    m.healthData.healthIndex * 0.1 +
+    m.educationData.educationIndex * 0.1 +
+    m.safetyData.patrolCoverage * 0.05
   );
 }
 
@@ -66,6 +75,11 @@ export function useCitySimulation() {
       citizenHappiness: 78,
       housingOccupancy: 89,
       housingEnergy: 0.9,
+      healthData: { bedOccupancy: 72, emergencyResponseMin: 4.2, healthIndex: 84 },
+      safetyData: { activeCases: 12, crimeIndex: 8, patrolCoverage: 92 },
+      educationData: { enrollmentRate: 88, digitalLiteracy: 76, educationIndex: 82 },
+      fireRiskData: { responseTimeMin: 3.5, fireRiskIndex: 6 },
+      agricultureOutput: 82,
     };
     return { ...initial, cityHealth: calculateHealth(initial) };
   });
@@ -98,6 +112,26 @@ export function useCitySimulation() {
         ),
         housingOccupancy: fluctuate(prev.housingOccupancy, 3),
         housingEnergy: clamp(prev.housingEnergy + (Math.random() - 0.5) * 0.15, 0.3, 2),
+        healthData: {
+          bedOccupancy: fluctuate(prev.healthData.bedOccupancy, 5),
+          emergencyResponseMin: clamp(prev.healthData.emergencyResponseMin + (Math.random() - 0.5) * 0.3, 2, 8),
+          healthIndex: fluctuate(prev.healthData.healthIndex, 4),
+        },
+        safetyData: {
+          activeCases: clamp(prev.safetyData.activeCases + Math.round((Math.random() - 0.5) * 4), 0, 50),
+          crimeIndex: fluctuate(prev.safetyData.crimeIndex, 3),
+          patrolCoverage: fluctuate(prev.safetyData.patrolCoverage, 3),
+        },
+        educationData: {
+          enrollmentRate: fluctuate(prev.educationData.enrollmentRate, 3),
+          digitalLiteracy: fluctuate(prev.educationData.digitalLiteracy, 4),
+          educationIndex: fluctuate(prev.educationData.educationIndex, 4),
+        },
+        fireRiskData: {
+          responseTimeMin: clamp(prev.fireRiskData.responseTimeMin + (Math.random() - 0.5) * 0.2, 2, 6),
+          fireRiskIndex: fluctuate(prev.fireRiskData.fireRiskIndex, 2),
+        },
+        agricultureOutput: fluctuate(prev.agricultureOutput, 4),
       };
       return { ...next, cityHealth: calculateHealth(next) };
     });

@@ -157,3 +157,72 @@ export const housingData = {
   ],
   chartLabel: "Happiness & Energy",
 };
+
+export const hospitalData = {
+  name: "Hospital Complex",
+  description: "Smart healthcare & emergency response facility",
+  insight: "Bed occupancy within range. Emergency response time below 5 min.",
+  kpis: [
+    { label: "Bed Occupancy", value: 72, unit: "%" },
+    { label: "Emergency Response", value: 4.2, unit: "min" },
+    { label: "Health Index", value: 84, unit: "%" },
+  ],
+  chartData: [
+    { week: "W1", occupancy: 68, response: 4.8 },
+    { week: "W2", occupancy: 72, response: 4.2 },
+    { week: "W3", occupancy: 75, response: 4.5 },
+    { week: "W4", occupancy: 70, response: 4.0 },
+  ],
+  chartLabel: "Occupancy & Response Time",
+};
+
+export const policeData = {
+  name: "Police Station",
+  description: "Safety & law enforcement monitoring",
+  insight: "Patrol coverage high. Crime index below threshold.",
+  kpis: [
+    { label: "Active Cases", value: 12, unit: "" },
+    { label: "Crime Index", value: 8, unit: "%" },
+    { label: "Patrol Coverage", value: 92, unit: "%" },
+  ],
+  chartData: [
+    { month: "Jan", cases: 15, coverage: 88 },
+    { month: "Feb", cases: 12, coverage: 90 },
+    { month: "Mar", cases: 10, coverage: 91 },
+    { month: "Apr", cases: 12, coverage: 92 },
+  ],
+  chartLabel: "Cases & Patrol Coverage",
+};
+
+export const fireData = {
+  name: "Fire Station",
+  description: "Emergency fire response & risk monitoring",
+  insight: "Response time under 4 min. Fire risk index low.",
+  kpis: [
+    { label: "Response Time", value: 3.5, unit: "min" },
+    { label: "Fire Risk Index", value: 6, unit: "%" },
+  ],
+  chartData: [
+    { month: "Jan", response: 4.0, risk: 8 },
+    { month: "Feb", response: 3.8, risk: 7 },
+    { month: "Mar", response: 3.5, risk: 6 },
+  ],
+  chartLabel: "Response Time & Fire Risk",
+};
+
+export const educationData = {
+  name: "Education Centers",
+  description: "Schools, colleges & digital literacy monitoring",
+  insight: "Enrollment and digital literacy trending up.",
+  kpis: [
+    { label: "Enrollment Rate", value: 88, unit: "%" },
+    { label: "Digital Literacy", value: 76, unit: "%" },
+    { label: "Education Index", value: 82, unit: "%" },
+  ],
+  chartData: [
+    { term: "T1", enrollment: 84, literacy: 72 },
+    { term: "T2", enrollment: 86, literacy: 74 },
+    { term: "T3", enrollment: 88, literacy: 76 },
+  ],
+  chartLabel: "Enrollment & Digital Literacy",
+};

@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Building2, Zap, Car, Recycle, Droplets, ShoppingBag, Wheat, Home } from "lucide-react";
+import { Building2, Zap, Car, Recycle, Droplets, ShoppingBag, Wheat, Home, Heart, Shield, Flame, GraduationCap } from "lucide-react";
 
 interface Props {
   onSelect: (building: string) => void;
@@ -15,6 +15,10 @@ const MODULES = [
   { id: "mall", label: "Mall", icon: ShoppingBag },
   { id: "agriculture", label: "Agriculture", icon: Wheat },
   { id: "housing", label: "Housing", icon: Home },
+  { id: "hospital", label: "Hospital", icon: Heart },
+  { id: "police", label: "Police", icon: Shield },
+  { id: "fire", label: "Fire", icon: Flame },
+  { id: "education", label: "Education", icon: GraduationCap },
 ];
 
 export default function ModuleList({ onSelect, selected }: Props) {
