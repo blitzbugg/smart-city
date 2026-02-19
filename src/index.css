@@ -1,0 +1,147 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+@layer base {
+  :root {
+    --background: 140 20% 97%;
+    --foreground: 160 30% 10%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 160 30% 10%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 160 30% 10%;
+
+    --primary: 152 56% 42%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 148 30% 90%;
+    --secondary-foreground: 152 40% 20%;
+
+    --muted: 140 15% 93%;
+    --muted-foreground: 160 10% 45%;
+
+    --accent: 162 50% 48%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 150 20% 88%;
+    --input: 150 20% 88%;
+    --ring: 152 56% 42%;
+
+    --radius: 0.75rem;
+
+    --eco-emerald: 152 56% 42%;
+    --eco-mint: 162 50% 48%;
+    --eco-lime: 100 50% 55%;
+    --eco-forest: 155 40% 25%;
+    --eco-white: 0 0% 98%;
+    --eco-surface: 140 20% 97%;
+    --eco-glass: 0 0% 100%;
+
+    --health-good: 145 63% 42%;
+    --health-warning: 38 92% 50%;
+    --health-danger: 0 72% 51%;
+
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 152 56% 42%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 148 30% 90%;
+    --sidebar-accent-foreground: 160 30% 10%;
+    --sidebar-border: 150 20% 88%;
+    --sidebar-ring: 152 56% 42%;
+
+    --font-display: 'Space Grotesk', sans-serif;
+    --font-body: 'Outfit', sans-serif;
+  }
+
+  .dark {
+    --background: 160 30% 6%;
+    --foreground: 140 20% 95%;
+
+    --card: 160 25% 10%;
+    --card-foreground: 140 20% 95%;
+
+    --popover: 160 25% 10%;
+    --popover-foreground: 140 20% 95%;
+
+    --primary: 152 56% 48%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 155 25% 15%;
+    --secondary-foreground: 140 20% 90%;
+
+    --muted: 155 20% 15%;
+    --muted-foreground: 150 10% 55%;
+
+    --accent: 162 50% 48%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 155 20% 18%;
+    --input: 155 20% 18%;
+    --ring: 152 56% 48%;
+
+    --sidebar-background: 160 25% 8%;
+    --sidebar-foreground: 140 20% 90%;
+    --sidebar-primary: 152 56% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 155 25% 15%;
+    --sidebar-accent-foreground: 140 20% 90%;
+    --sidebar-border: 155 20% 18%;
+    --sidebar-ring: 152 56% 48%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: var(--font-body);
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+  }
+}
+
+@layer components {
+  .glass-panel {
+    @apply bg-white/70 backdrop-blur-xl border border-white/30 shadow-lg;
+  }
+
+  .glass-panel-strong {
+    @apply bg-white/85 backdrop-blur-2xl border border-white/40 shadow-xl;
+  }
+
+  .health-bar-good {
+    background: linear-gradient(90deg, hsl(145 63% 42%), hsl(152 56% 48%));
+  }
+
+  .health-bar-warning {
+    background: linear-gradient(90deg, hsl(38 92% 50%), hsl(45 93% 47%));
+  }
+
+  .health-bar-danger {
+    background: linear-gradient(90deg, hsl(0 72% 51%), hsl(15 80% 50%));
+  }
+
+  .eco-gradient {
+    background: linear-gradient(135deg, hsl(152 56% 42%), hsl(162 50% 48%));
+  }
+
+  .eco-gradient-subtle {
+    background: linear-gradient(135deg, hsl(148 30% 90%), hsl(162 40% 92%));
+  }
+}
